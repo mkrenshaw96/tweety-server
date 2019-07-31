@@ -32,7 +32,7 @@ router.post('/signup', (req, res) => {
     db.User.create(signUpData)
         .then(createdUser => {
             let token = jwt.sign({
-                id: createdUser.id,
+                uuid: createdUser.uuid,
             }, process.env.JWT_SECRET, {
                     expiresIn: 60 * 60 * 24
                 })
@@ -57,7 +57,7 @@ router.post('/login', (req, res) => {
             bcrypt.compare(req.body.password, foundUser.password, (err, match) => {
                 if (match) {
                     let token = jwt.sign({
-                        id: foundUser.id,
+                        uuid: foundUser.uuid,
                     }, process.env.JWT_SECRET, {
                             expiresIn: 60 * 60 * 24
                         })
@@ -83,8 +83,8 @@ router.delete('/delete/:id', ADMIN, (req, res) => {
         }
     })
         .then(foundUser => {
-            console.log(req.user.id)
-            if (req.user.id === 1) {
+            console.log(req.user.uuid)
+            if (req.user.uuid === '2adbba0b-c199-4c17-9ec5-233a93830632') {
                 foundUser.destroy()
                     .then(() => res.status(200).json('USER SUCCESSFULLY DESTROYED'))
                     .catch(err => console.log(err))

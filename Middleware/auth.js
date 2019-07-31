@@ -5,7 +5,7 @@ const Auth = (req, res, next) => {
         if (!err && decoded) {
             db.User.findOne({
                 where: {
-                    id: decoded.id
+                    uuid: decoded.uuid
                 }
             })
                 .then(foundUser => {

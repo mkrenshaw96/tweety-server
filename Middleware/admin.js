@@ -2,10 +2,10 @@ const jwt = require('jsonwebtoken');
 const db = require('../db');
 const Admin = (req, res, next) => {
     jwt.verify(req.headers.authorization, process.env.JWT_SECRET, (err, decoded) => {
-        if (!err && decoded && decoded.id === 1) {
+        if (!err && decoded && decoded.uuid === '2adbba0b-c199-4c17-9ec5-233a93830632') {
             db.User.findOne({
                 where: {
-                    id: decoded.id
+                    uuid: decoded.uuid
                 }
             })
                 .then(foundUser => {
